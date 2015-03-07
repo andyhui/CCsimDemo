@@ -1,0 +1,20 @@
+﻿1.运行环境
+    本程序运行需要系统安装qmake工具（它可根据项目文件自动生成makefile文件）。本机测试系统安装的qmake工具为：qmake-qt4
+
+2.编译运行程序
+  从CVS上下载真实节点客户端源程序：
+      $ cvs login
+      $ cvs checkout software/posture_team/projects/CCSimDemo/RealNode_Qt  
+  进入到源程序所在目录：
+      $ cd software/posture_team/projects/CCSimDemo/RealNode_Qt
+  使用qmake工具生成Makefile,编译并执行程序：
+      $ qmake-qt4          /* 可根据源文件和当前系统平台配置自动生成Makefile文件 */
+      $ make               /* 编译源文件，可生成可执行文件RealNode_Qt */
+      $ ./RealNode_Qt      /* 执行程序，出现GUI配置界面 */
+
+3.GUI配置
+  程序执行会弹出配置界面，可在窗口中配置UDP目标主机的IP和端口号，然后:
+    1)点击“确定”按钮就开始发送数据;
+    2)点击“重置”按钮则清空IP和端口的输入框，重新设置目标主机IP和端口号;
+    3)点击“退出”按钮则退出程序.
+    4）程序输出框中会打印程序的执行情况。
