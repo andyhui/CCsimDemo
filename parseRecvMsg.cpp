@@ -89,11 +89,11 @@ void  MainWindow::parseRecvMsg(unsigned char recvBuffer[],QHostAddress addr)
             //printf("getSimBottomRight.y is %lf\n",scene->getSimBottomRight().y());
             //printf("getSimTopLeft.y is %lf\n",scene->getSimTopLeft().y());
 
-            printf("xcod is %lf\n",xcod);
-            printf("ycod is %lf\n",ycod);
+            //printf("xcod is %lf\n",xcod);
+            //printf("ycod is %lf\n",ycod);
 
-            printf("xcod after change is %lf\n",600*(1-(xcod-31.862142)/(0.0041685))-300);
-            printf("ycod after change is %lf\n",600*(ycod-118.790235)/(0.0053735)-300);
+            //printf("xcod after change is %lf\n",600*(1-(xcod-31.862142)/(0.0041685))-300);
+            //printf("ycod after change is %lf\n",600*(ycod-118.790235)/(0.0053735)-300);
 
 
             //node->setPos(600*(xcod-SOUTHWEST_LATITUDE)/(NORTHEAST_LATITUDE - SOUTHWEST_LATITUDE)-300,\
@@ -111,8 +111,10 @@ void  MainWindow::parseRecvMsg(unsigned char recvBuffer[],QHostAddress addr)
             }
             else
             {
-                node->setPos(SCENE_HEIGHT*(ycod-SOUTHWEST_LONGITUDE)/(NORTHEAST_LONGITUDE - SOUTHWEST_LONGITUDE)-SCENE_HEIGHT/2,\
-                                         (SCENE_WIDTH)*(1-(xcod-SOUTHWEST_LATITUDE)/(NORTHEAST_LATITUDE - SOUTHWEST_LATITUDE))-SCENE_WIDTH/2);
+                //node->setPos(SCENE_HEIGHT*(ycod-SOUTHWEST_LONGITUDE)/(NORTHEAST_LONGITUDE - SOUTHWEST_LONGITUDE)-SCENE_HEIGHT/2,\
+                                         //(SCENE_WIDTH)*(1-(xcod-SOUTHWEST_LATITUDE)/(NORTHEAST_LATITUDE - SOUTHWEST_LATITUDE))-SCENE_WIDTH/2);
+                node->setPos((SCENE_HEIGHT)*((xcod-SOUTHWEST_LATITUDE)/(NORTHEAST_LATITUDE - SOUTHWEST_LATITUDE))-SCENE_WIDTH/2,\
+                                         SCENE_WIDTH*(1-(ycod-SOUTHWEST_LONGITUDE)/(NORTHEAST_LONGITUDE - SOUTHWEST_LONGITUDE))-SCENE_HEIGHT/2);
 
             }
 
