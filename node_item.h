@@ -8,9 +8,6 @@
 
 #define PI 3.141592653
 
-//huiwu_liu
-#define MAX_BUFF_LENGTH 200
-
 /* Attribute of Enemy or Friend */
 enum EnemyAttr
 {
@@ -23,10 +20,22 @@ class NodeItem : public QGraphicsItem
 {
 public:
     NodeItem(QString ip = "0.0.0.0", qreal x = 0.0, qreal y = 0.0, qreal z = 0.0, \
-             EnemyAttr ea = FRIEND, bool ct = false,int nodeId = 0);
+             EnemyAttr ea = FRIEND, bool ct = false);
 
     /* Check if Damaged */
     bool judgeDamage();
+
+    /* Set Node Id */
+    void setNodeID(QString id)
+    {
+        this->nodeId = id;
+    }
+
+    /* Get Node Id */
+    QString getNodeID()
+    {
+        return this->nodeId;
+    }
 
     /* Get Enemy Attribute */
     EnemyAttr getNodeShip()
@@ -50,19 +59,6 @@ public:
     void setDamaged()
     {
         this->alive = false;
-    }
-
-    //huiwu_liu
-    /* get node id*/
-    int getNodeId()
-    {
-        return this->nodeId;
-    }
-
-    /* set node id*/
-    void setNodeId(int nodeItemId)
-    {
-        this->nodeId = nodeItemId;
     }
 
     /* Get IP Address */
@@ -151,7 +147,7 @@ private:
     EnemyAttr nodeship;     /* Enemy Attribute */
     qreal destroyRate;      /* Destroy Probability of being Attacked */
     bool center;            /* Center Node Mark */
-    int nodeId;             /* huiwu_liu add nodeId */
+    QString nodeId;             /* Node ID */
 };
 
 #endif // NODE_ITEM_H

@@ -1,0 +1,40 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Icons/attack.png</file>
+        <file>Icons/black.png</file>
+        <file>Icons/blue.png</file>
+        <file>Icons/enemy_damage.png</file>
+        <file>Icons/friend_damage.png</file>
+        <file>Icons/neutral_damage.png</file>
+        <file>Icons/red.png</file>
+        <file>Icons/star.png</file>
+        <file>Icons/target.png</file>
+        <file>Maps/map1.png</file>
+        <file>Maps/map2.png</file>
+        <file>Maps/map3.png</file>
+        <file>Maps/map4.png</file>
+        <file>Maps/map5.png</file>
+        <file>images/background.png</file>
+        <file>images/background1.png</file>
+        <file>images/button.png</file>
+        <file>images/button-bak.png</file>
+        <file>images/button-hover.png</file>
+        <file>images/button-pressed.png</file>
+        <file>images/copy.png</file>
+        <file>images/cut.png</file>
+        <file>images/darkgray.png</file>
+        <file>images/down-arrow.png</file>
+        <file>images/find.png</file>
+        <file>images/gotocell.png</file>
+        <file>images/gray.png</file>
+        <file>images/green.png</file>
+        <file>images/icon.png</file>
+        <file>images/main-background.png</file>
+        <file>images/new.png</file>
+        <file>images/open.png</file>
+        <file>images/paste.png</file>
+        <file>images/plane.png</file>
+        <file>images/save.png</file>
+        <file>images/toolbutton.png</file>
+    </qresource>
+</RCC>

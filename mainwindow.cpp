@@ -1,7 +1,8 @@
 #include "mainwindow.h"
 
-MainWindow::MainWindow()
+MainWindow::MainWindow(QWidget* parent)
 {
+    this->setParent(parent);
     setWindowTitle(tr("指控仿真演示"));
 
     scene = new SimScene("Maps/c4istarlab.png", this);    /* New a Scene with Specified Map */
@@ -24,6 +25,8 @@ MainWindow::MainWindow()
 
     ccTypeCombo = new QComboBox;
     ccTypeCombo->addItem(tr("攻击"));
+    //ccTypeCombo->addItem(tr("测试"));
+    //ccTypeCombo->addItem(tr("攻击2"));
 
     ccObjectLine->installEventFilter(this);
     ccTargetLine->installEventFilter(this);
@@ -36,6 +39,14 @@ MainWindow::MainWindow()
 
     /* Create SAGUI Menus */
     createMenus();
+
+#ifdef CNGC_V2
+
+    createActions();
+    createToolBars();
+    createStatusBar();
+
+#endif
 
     /* Load the Initial Data to Scene */
     initScenes("Profiles/profile.xml");
@@ -199,26 +210,26 @@ void MainWindow::initScenes(QString profilePath)
             }
         }
     }
-
+/*
     QPen pen;
     pen.setColor(Qt::white);
     pen.setCapStyle(Qt::RoundCap);
     pen.setJoinStyle(Qt::RoundJoin);
     pen.setWidth(1);
-    //scene->addLine(-SCENE_WIDTH/2, SCENE_HEIGHT/2, SCENE_WIDTH/2, SCENE_HEIGHT/2, pen);
-   // scene->addLine(-SCENE_WIDTH/2, -SCENE_HEIGHT/2, -SCENE_WIDTH/2-, -230, pen);
-    //scene->addLine(-225, -250, -215, -230, pen);
-   // scene->addLine(-225, 0, -245, 0, pen);
-   // scene->addLine(-225, 250, -225, -250, pen);
-   // scene->addLine(225, 250, 205, 240, pen);
-   // scene->addLine(225, 250, 205, 260, pen);
-   // scene->addLine(0, 225, 0, 245, pen);
+    scene->addLine(-300, 300, 300, 300, pen);
+    scene->addLine(-300, -300, -310, -280, pen);
+    scene->addLine(-300, -300, -290, -280, pen);
+    scene->addLine(-300, 0, -295, 0, pen);
+    scene->addLine(-300, 300, -300, -300, pen);
+    scene->addLine(300, 300, 280, 290, pen);
+    scene->addLine(300, 300, 280, 310, pen);
+    scene->addLine(0, 300, 0, 295, pen);
 
-   /* QGraphicsTextItem *text1 = \
+    QGraphicsTextItem *text1 = \
             scene->addText(tr("(") + QString::number(scene->getSimTopLeft().x()) + \
-                                             tr(",") + QString::number(scene->getSimBottomRight().y()) + \
+                                              tr(",") + QString::number(scene->getSimBottomRight().y()) + \
                                               tr(")"));
-    text1->setPos(-270, 250);
+    text1->setPos(-320, 300);
     text1->setDefaultTextColor(Qt::white);
 
     QGraphicsTextItem *text2 = \
@@ -226,23 +237,24 @@ void MainWindow::initScenes(QString profilePath)
                                               tr(",") + QString::number((scene->getSimTopLeft().y() + \
                                                                          scene->getSimBottomRight().y())/2) + \
                                               tr(")"));
-    text2->setPos(-220, -10);
+    text2->setPos(-295, -10);
     text2->setDefaultTextColor(Qt::white);
 
     QGraphicsTextItem *text3 = scene->addText(tr("(") + QString::number((scene->getSimTopLeft().x() + \
                                                                         scene->getSimBottomRight().x())/2) + \
                                               tr(",") + QString::number(scene->getSimBottomRight().y()) + \
                                               tr(")"));
-    text3->setPos(-25, 220);
+    text3->setPos(-25, 270);
     text3->setDefaultTextColor(Qt::white);
 
     QGraphicsTextItem *text4 = scene->addText(QString::number(scene->getSimHeight()) + tr(" m"));
-    text4->setPos(-215, -250);
+    text4->setPos(-290, -300);
     text4->setDefaultTextColor(Qt::white);
 
     QGraphicsTextItem *text5 = scene->addText(QString::number(scene->getSimWidth()) + tr(" m"));
-    text5->setPos(200, 220);
-    text5->setDefaultTextColor(Qt::white);*/
+    text5->setPos(250, 270);
+    text5->setDefaultTextColor(Qt::white);
+    */
 }
 
 /* Read XML Profile's battlefield Element */
@@ -265,7 +277,6 @@ void MainWindow::readBattleField()
                 QStringList rangeList = rangeString.split(",", QString::SkipEmptyParts);
                 if (rangeList.count() == 4)
                 {
-                    //set the sim_scene size
                     scene->setSimRange(QPointF(rangeList.at(0).toFloat(),\
                                                rangeList.at(1).toFloat()),\
                                        QPointF(rangeList.at(2).toFloat(),\
@@ -300,8 +311,9 @@ void MainWindow::readBattleField()
 /* Read XML Profile's Node Element */
 void MainWindow::readNode()
 {
-    reader.readNext();
     NodeItem *node = new NodeItem;
+    node->setNodeID(reader.attributes().value("id").toString());
+    reader.readNext();
 
     while (!reader.atEnd())
     {
@@ -312,23 +324,10 @@ void MainWindow::readNode()
         }
         else if (reader.isStartElement())
         {
-            //huiwu_liu
-            if (reader.name() == "ID")
-            {
-                QString nodeItemId = reader.readElementText();
-                //printf("the node id is %d\n",nodeItemId.toInt());
-                node->setNodeId(nodeItemId.toInt());
-
-                if (reader.isEndElement())
-                {
-                    reader.readNext();
-                }
-            }
-            else if (reader.name() == "IP")
+            if (reader.name() == "IP")
             {
                 QString ipAddr = reader.readElementText();
                 node->setIpAddr(ipAddr);
-                //printf("the node ip addr is \n");
 
                 if (reader.isEndElement())
                 {
@@ -518,3 +517,93 @@ void MainWindow::cancelSelection()
     ccObjectLine->clear();
     ccTargetLine->clear();
 }
+
+#ifdef CNGC_V2
+
+/* 自定义工具栏 */
+void MainWindow::createActions()
+{
+    newAction = new QAction(tr("&New"), this);
+    newAction->setIcon(QIcon(":/images/new.png"));
+    newAction->setShortcut(QKeySequence::New);
+    newAction->setStatusTip(tr("Create a new spreadsheet file"));
+   // connect(newAction, SIGNAL(triggered()), this, SLOT(newFile()));
+
+    openAction = new QAction(tr("&Open..."), this);
+    openAction->setIcon(QIcon(":/images/open.png"));
+    openAction->setShortcut(QKeySequence::Open);
+    openAction->setStatusTip(tr("Open an existing spreadsheet file"));
+    //connect(openAction, SIGNAL(triggered()), this, SLOT(open()));
+
+    saveAction = new QAction(tr("&Save"), this);
+    saveAction->setIcon(QIcon(":/images/save.png"));
+    saveAction->setShortcut(QKeySequence::Save);
+    saveAction->setStatusTip(tr("Save the spreadsheet to disk"));
+
+    cutAction = new QAction(tr("Cu&t"), this);
+    cutAction->setIcon(QIcon(":/images/cut.png"));
+    cutAction->setShortcut(QKeySequence::Cut);
+    cutAction->setStatusTip(tr("Cut the current selection's contents "
+                               "to the clipboard"));
+
+    copyAction = new QAction(tr("&Copy"), this);
+    copyAction->setIcon(QIcon(":/images/copy.png"));
+    copyAction->setShortcut(QKeySequence::Copy);
+    copyAction->setStatusTip(tr("Copy the current selection's contents "
+                                "to the clipboard"));
+
+    pasteAction = new QAction(tr("&Paste"), this);
+    pasteAction->setIcon(QIcon(":/images/paste.png"));
+    pasteAction->setShortcut(QKeySequence::Paste);
+    pasteAction->setStatusTip(tr("Paste the clipboard's contents into "
+                                 "the current selection"));
+
+    findAction = new QAction(tr("&Find..."), this);
+    findAction->setIcon(QIcon(":/images/find.png"));
+    findAction->setShortcut(QKeySequence::Find);
+    findAction->setStatusTip(tr("Find a matching cell"));
+
+    goToCellAction = new QAction(tr("&Go to Cell..."), this);
+    goToCellAction->setIcon(QIcon(":/images/gotocell.png"));
+    goToCellAction->setShortcut(tr("Ctrl+G"));
+    goToCellAction->setStatusTip(tr("Go to the specified cell"));
+}
+
+void MainWindow::createToolBars()
+{
+    fileToolBar = addToolBar(tr("&File"));
+    fileToolBar->addAction(newAction);
+    fileToolBar->addAction(openAction);
+    fileToolBar->addAction(saveAction);
+
+    editToolBar = addToolBar(tr("&Edit"));
+    editToolBar->addAction(cutAction);
+    editToolBar->addAction(copyAction);
+    editToolBar->addAction(pasteAction);
+    editToolBar->addSeparator();
+    editToolBar->addAction(findAction);
+    editToolBar->addAction(goToCellAction);
+}
+
+void MainWindow::createStatusBar()
+{
+    locationLabel = new QLabel(tr(" 版权：中国兵器北方信息控制集团"));
+    locationLabel->setAlignment(Qt::AlignLeft);
+    locationLabel->setMinimumSize(locationLabel->sizeHint());
+    locationLabel->setProperty("qssField",true);   //设置qss配置标志
+
+    formulaLabel = new QLabel;
+    formulaLabel->setIndent(3);
+
+    statusBar()->addWidget(locationLabel);
+    statusBar()->addWidget(formulaLabel, 1);
+
+  //  connect(spreadsheet, SIGNAL(currentCellChanged(int, int, int, int)),
+   //         this, SLOT(updateStatusBar()));
+  //  connect(spreadsheet, SIGNAL(modified()),
+  //          this, SLOT(spreadsheetModified()));
+
+   // updateStatusBar(); //更新状态栏信息，可实时显示指针坐标之类信息
+}
+
+#endif

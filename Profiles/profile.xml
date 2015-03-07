@@ -1,82 +1,72 @@
 <battlefield>
  <MapRange>0,1500,1500,0</MapRange>
- <Node>
-  <ID>0</ID>
+ <Node id = "0">
   <IP>10.0.1.1</IP>
   <Location>600.0,1400.0,0.0</Location>
   <Friendship>friend</Friendship>
   <DestroyRate>0.0</DestroyRate>
   <Center>Yes</Center>
  </Node>
- <Node>
-  <ID>1</ID>
+ <Node id = "1">
   <IP>10.0.5.2</IP>
   <Location>1003.606103,1242.877955,0.0</Location>
-  <Friendship>friend</Friendship>
+  <Friendship>enemy</Friendship>
   <DestroyRate>0.3</DestroyRate>
   <Center>No</Center>
  </Node>
- <Node>
-  <ID>2</ID>
-  <IP>10.0.1.66</IP>
-  <Location>350.0,130.0,0.0</Location>
-  <Friendship>friend</Friendship>
+ <Node id = "2">
+  <IP>10.0.1.2</IP>
+  <Location>350.493757,130.460471,0.0</Location>
+  <Friendship>enemy</Friendship>
   <DestroyRate>0.5</DestroyRate>
   <Center>No</Center>
- </Node>
- <Node>
-  <ID>3</ID>
-  <IP>10.0.1.99</IP>
-  <Location>700.0,400.0,0.0</Location>
-  <Friendship>enemy</Friendship>
+ </Node> 
+ <Node id = "3">
+  <IP>10.0.3.2</IP>
+  <Location>700.104880,400.173832,0.0</Location>
+  <Friendship>friend</Friendship>
   <DestroyRate>0.6</DestroyRate>
   <Center>No</Center>
  </Node>
- <Node>
-  <ID>4</ID>
+ <Node id = "4">
   <IP>192.168.112.102</IP>
-  <Location>200.0,1000.0,0.0</Location>
-  <Friendship>enemy</Friendship>
+  <Location>820.0,1130.0,0.0</Location>
+  <Friendship>friend</Friendship>
   <DestroyRate>0.6</DestroyRate>
   <Center>No</Center>
  </Node>
- <Node>
-  <ID>5</ID>
+ <Node id = "5">
   <IP>10.0.1.42</IP>
   <Location>1200.0,200.0,0.0</Location>
-  <Friendship>friend</Friendship>
+  <Friendship>enemy</Friendship>
   <DestroyRate>0.35</DestroyRate>
   <Center>No</Center>
  </Node>
- <Node>
-  <ID>6</ID>
-  <IP>10.0.1.2</IP>
-  <Location>454.493757,733.460471,0.0</Location>
-  <Friendship>enemy</Friendship>
+ <Node id = "6">
+  <IP>10.0.1.13</IP>
+  <Location>504.493757,1300.460471,0.0</Location>
+  <Friendship>friend</Friendship>
   <DestroyRate>0.72</DestroyRate>
   <Center>No</Center>
  </Node>
- <Node>
-  <ID>7</ID>
+ <Node id = "7">
   <IP>10.0.6.1</IP>
   <Location>1225.942353,963.292686,0.0</Location>
-  <Friendship>friend</Friendship>
+  <Friendship>enemy</Friendship>
   <DestroyRate>0.31</DestroyRate>
   <Center>No</Center>
  </Node>
- <Node>
-  <ID>8</ID>
+ <Node id = "8">
   <IP>10.0.2.1</IP>
   <Location>1137.804880,476.773831,0.0</Location>
-  <Friendship>friend</Friendship>
+  <Friendship>enemy</Friendship>
   <DestroyRate>0.25</DestroyRate>
   <Center>No</Center>
  </Node>
- <Node>
-  <ID>9</ID>
-  <IP>10.0.3.2</IP>
-  <Location>617.683771,1317.857151,0.0</Location>
-  <Friendship>enemy</Friendship>
+ <Node id = "9">
+  <IP>10.10.10.10</IP>
+  <Location>550.683771,1130.857151,0.0</Location>
+  <Friendship>friend</Friendship>
   <DestroyRate>0.83</DestroyRate>
   <Center>No</Center>
  </Node>

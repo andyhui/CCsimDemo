@@ -367,6 +367,12 @@ int main (int argc, char **argv)
     QApplication app(argc, argv);    
     QTextCodec::setCodecForTr(QTextCodec::codecForName("UTF-8"));    //set GUI to support chinese
     RealNode realnode;
+    
+    QFile file("../qss/candy.qss");
+    file.open(QFile::ReadOnly);
+    app.setStyleSheet(file.readAll());
+    
+    
     realnode.show();
     return app.exec();
 }

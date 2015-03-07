@@ -2,7 +2,9 @@ HEADERS += \
     mainwindow.h \
     node_item.h \
     bullet_item.h \
-    sim_scene.h
+    sim_scene.h    \
+    titlebar/frame.h \
+    titlebar/titlebar.h
 
 SOURCES += \
     node_item.cpp \
@@ -15,8 +17,15 @@ SOURCES += \
     parseRecvMsg.cpp \
     recieveMsg.cpp \
     sendMsg.cpp \
-    mainwindow.cpp
+    mainwindow.cpp  \
+    titlebar/frame.cpp \
+    titlebar/titlebar.cpp
 
 QT += \
     network
 
+OTHER_FILES += \
+    qss/candy.qss
+
+RESOURCES += \
+    CCSimDemo.qrc

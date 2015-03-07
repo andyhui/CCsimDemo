@@ -1,0 +1,222 @@
+/* R1 可设置消息弹出框的背景图片，默认情况下与主窗口颜色一致 */
+QDialog{
+   /*  background-image: url(:/images/background.png); */
+   border-radius:10px;
+}
+
+/* R2 */
+QLabel{
+    font: 12pt;
+    color:black;
+    font-family:"AR PL UKai CN";
+    background-color: transparent;
+}
+
+/* R3 组合框，编辑框，列表框的设置 */
+QComboBox:editable,    /* 可编辑组合框 */
+QLineEdit,
+QTextEdit,
+QListView {
+    color: rgb(127, 0, 63);
+    background-color: rgb(255, 255, 241);
+    selection-color: white;
+    selection-background-color: rgb(191, 31, 127);
+    border: 2px groove gray;
+    border-radius: 10px;
+    padding: 2px 4px;
+}
+
+/* R4 */
+QListView {
+    padding: 5px 4px;
+}
+
+/* R5 */
+QComboBox:!editable,
+QPushButton
+{
+    color: white;
+    font: bold 10pt;
+    border-image: url(:/images/button.png) 16;
+    border-width: 16px;
+    padding: -16px 0px;
+    min-height: 32px;
+    min-width: 60px;
+}
+
+/* R6 */
+QComboBox:!editable:hover,
+QComboBox::drop-down:editable:hover,
+QPushButton:hover {
+    border-image: url(:/images/button-hover.png) 16;
+}
+
+/* R7 */
+QComboBox:!editable:on,
+QPushButton:pressed {
+    color: lightgray;
+    border-image: url(:/images/button-pressed.png) 16;
+    padding-top: -15px;
+    padding-bottom: -17px;
+}
+
+/* R8 */
+QComboBox::down-arrow {
+    image: url(:/images/down-arrow.png);
+}
+
+/* R9 */
+QComboBox::down-arrow:on {
+    top: 1px;
+}
+
+/* R10 */
+QComboBox * {
+    font: 9pt;
+}
+
+/* R11 */
+QComboBox::drop-down:!editable {
+    subcontrol-origin: padding;
+    subcontrol-position: center right;
+    width: 11px;
+    height: 8px;
+    background: none;
+}
+
+/* R12 */
+QComboBox:!editable {
+    padding-right: 16px;
+}
+
+/* R13 */
+QComboBox::drop-down:editable {
+    border-image: url(:/images/button.png) 16;
+    border-width: 10px;
+    subcontrol-origin: margin;
+    subcontrol-position: center right;
+    width: 20px;
+    height: 20px;
+}
+
+/* R14 */
+QComboBox::drop-down:editable:open {
+    border-image: url(:/images/button-pressed.png) 16;
+}
+
+/* R15 */
+QComboBox:editable {
+    margin-right: 29px;
+}
+
+/* 菜单栏 */
+QMenuBar
+{
+   background-color:#B5B5B5;
+}
+
+QMenuBar::item
+{
+   background-color:#B5B5B5;
+   font:12pt;
+   color:black;
+   font-family:"宋体";
+}
+
+QMenuBar::item:selected
+{
+   background-color:#EBEBEB;  /* 白灰色 */
+}
+
+/* 菜单项 */
+QMenu{
+      font-size:14px;
+      color:black;
+      font-family:"AR PL UKai CN";
+      background-color:#CCCCCC;
+      border:2px outset transparent;
+}
+
+QMenu::item:selected
+{
+    background-color:white;
+}
+
+QMenu::separator{
+   height:2px;
+   background:lightblue;
+   margin-left:10px;
+   margin-right:5px;
+}
+QMenu::indicator{
+   width:13px;
+   height:13px;
+   background-color:red;
+}
+
+/* 组合框设置 */
+QGroupBox {
+   font-size:14px;
+   color:#6B8E23;
+   font-family:"宋体";
+   border-radius: 6px;
+   margin-top: 2ex; /* leave space at the top for the title */
+}
+
+QGroupBox::title
+{
+    subcontrol-origin:margin;
+    subcontrol-position:top left;
+    padding:0 2px;
+
+}
+
+/* 工具栏设置*/
+QToolBar
+{
+   background-color:#C1CDCD;
+}
+
+/* 标题栏配置,注意标题栏是自定义的TitleBar类，将标题栏设置为黑色 */
+QFrame
+{
+   border-top-left-radius:10px;
+   border-top-right-radius:10px;
+}
+QFrame TitleBar
+{  
+   background-color:qlineargradient(x1:0,y1:0,x2:1,y2:1,
+                           stop:0 #838B8B,stop:0.3 #292929,
+                           stop:1 #0A0A0A);   /*黑色 */
+}
+
+QFrame TitleBar>QToolButton
+{
+
+   background-color:#0A0A0A;
+   border-image:url(:/images/gray.png);
+   border:1px;
+}
+
+
+QFrame TitleBar>QToolButton:hover
+{
+   border-image:url(:/images/green.png);
+}
+
+QFrame TitleBar>QToolButton:clicked
+{
+   border-image:url(:/images/darkgray.png);
+}
+
+/* 设置窗体最下方的状态栏的字体显示 */
+QStatusBar>QLabel[qssField="true"]
+{
+   background-color:transparent;
+   font:9pt;
+   color:#DAA520;   /* 黄橙色*/
+   font-family:"Purisa";
+   font-style:italic;
+   font-weight:100;
+}
+

@@ -105,9 +105,18 @@ void  MainWindow::parseRecvMsg(unsigned char recvBuffer[],QHostAddress addr)
 
             //node->setPos(1400*(1-(xcod-SOUTHWEST_LATITUDE)/(NORTHEAST_LATITUDE - SOUTHWEST_LATITUDE))-500,\
             //                         500*(ycod-SOUTHWEST_LONGITUDE)/(NORTHEAST_LONGITUDE - SOUTHWEST_LONGITUDE)-500);
+            if(node->getNodeID()=="4" || node->getNodeID()=="9")
+            {
 
-            node->setPos(SCENE_HEIGHT*(ycod-SOUTHWEST_LONGITUDE)/(NORTHEAST_LONGITUDE - SOUTHWEST_LONGITUDE)-SCENE_HEIGHT/2,\
-                                     (SCENE_WIDTH)*(1-(xcod-SOUTHWEST_LATITUDE)/(NORTHEAST_LATITUDE - SOUTHWEST_LATITUDE))-SCENE_WIDTH/2);
+            }
+            else
+            {
+                node->setPos(SCENE_HEIGHT*(ycod-SOUTHWEST_LONGITUDE)/(NORTHEAST_LONGITUDE - SOUTHWEST_LONGITUDE)-SCENE_HEIGHT/2,\
+                                         (SCENE_WIDTH)*(1-(xcod-SOUTHWEST_LATITUDE)/(NORTHEAST_LATITUDE - SOUTHWEST_LATITUDE))-SCENE_WIDTH/2);
+
+            }
+
+
             break;
 
         /* Recieved message is command ACK */

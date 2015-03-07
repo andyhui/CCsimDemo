@@ -3,6 +3,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#define CNGC_V2
+
 #include "node_item.h"
 #include "bullet_item.h"
 #include "sim_scene.h"
@@ -13,7 +15,7 @@
 #define NORTHEAST_LATITUDE  31.8663105
 #define NORTHEAST_LONGITUDE  118.7956085
 
-#define SCENE_WIDTH 430
+#define SCENE_WIDTH 530
 #define SCENE_HEIGHT 500
 
 class MainWindow : public QMainWindow
@@ -21,7 +23,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow();
+    MainWindow(QWidget* parent=0);
     ~MainWindow();
 
     /* Create Window Menu */
@@ -66,6 +68,30 @@ public slots:
     void checkSend();       /* Check Send Operation */
 
 private:
+
+#ifdef CNGC_V2
+     void createActions();     //创建工具栏项
+     void createToolBars();    //添加工具项
+     void createStatusBar();   //创建状态栏
+
+     QAction* newAction;
+     QAction* openAction;
+     QAction* saveAction;
+     QAction* cutAction;
+     QAction* copyAction;
+     QAction* pasteAction;
+     QAction* findAction;
+     QAction* goToCellAction;
+
+     QToolBar* fileToolBar;
+     QToolBar* editToolBar;
+
+     QLabel* locationLabel;
+     QLabel* formulaLabel;
+
+
+#endif
+
     QGraphicsView *saview;  /* To Show Simulation Scene */
     SimScene *scene;        /* Contains All GraphicsItem */
 

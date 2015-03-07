@@ -9,3 +9,9 @@ SOURCES += \
     RealNode.cpp
 
 QT += network
+
+OTHER_FILES += \
+    ../qss/candy.qss
+
+RESOURCES += \
+    ../CCSimDemo.qrc

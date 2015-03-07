@@ -2,7 +2,7 @@
 #include "sim_scene.h"
 #include "mainwindow.h"
 
-NodeItem::NodeItem (QString ip, qreal x, qreal y, qreal z, EnemyAttr ea, bool ct,int nodeItemId)
+NodeItem::NodeItem (QString ip, qreal x, qreal y, qreal z, EnemyAttr ea, bool ct)
 {
     alive = true;
     destroyRate = 0.0;
@@ -12,18 +12,17 @@ NodeItem::NodeItem (QString ip, qreal x, qreal y, qreal z, EnemyAttr ea, bool ct
     z_coordinate = z;
     nodeship = ea;
     center = ct;
-    nodeId = nodeItemId;
 }
 
 QRectF NodeItem::boundingRect() const
 {
     if (!center)
     {
-        return QRectF(-10, -10, 20, 20);
+        return QRectF(-20, -20, 40, 40);
     }
     else
     {
-        return QRectF(-20*cos(PI/10), -20, 40*cos(PI/10), 40+40*cos(PI/5));
+        return QRectF(-30*cos(PI/10), -30, 60*cos(PI/10), 60+60*cos(PI/5));
     }
 }
 
@@ -31,16 +30,16 @@ QPainterPath NodeItem::shape()
 {
     QPainterPath path;
     if (!center){
-        path.addEllipse(QPointF(0.0, 0.0), 10, 10);
+        path.addEllipse(QPointF(0.0, 0.0), 20, 20);
     }
     else
     {
-        path.moveTo(-20*cos(PI/10), -20*sin(PI/10));
-        path.lineTo(20*cos(PI/10), -20*sin(PI/10));
-        path.lineTo(-20*sin(PI/5), 20*cos(PI/5));
-        path.lineTo(0.0f, -20.0f);
-        path.lineTo(20*sin(PI/5), 20*cos(PI/5));
-        path.lineTo(-20*cos(PI/10), -20*sin(PI/10));
+        path.moveTo(-30*cos(PI/10), -30*sin(PI/10));
+        path.lineTo(30*cos(PI/10), -30*sin(PI/10));
+        path.lineTo(-30*sin(PI/5), 30*cos(PI/5));
+        path.lineTo(0.0f, -30.0f);
+        path.lineTo(30*sin(PI/5), 30*cos(PI/5));
+        path.lineTo(-30*cos(PI/10), -30*sin(PI/10));
         path.setFillRule(Qt::WindingFill);
     }
     return path;
@@ -52,6 +51,14 @@ void NodeItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidge
     QPixmap pix;
 
     SimScene *scene = dynamic_cast <SimScene *> (this->scene());
+
+    QFont font("Arial",20,QFont::Bold,true);
+    QPen pen;
+    pen.setColor(Qt::white);
+    pen.setWidth(3);
+    QPainterPath path;
+    path.addEllipse(QPointF(0.0,0.0),20,20);
+    QRect rect(-20, -20, 40, 40);
 
     if (!alive)
     {
@@ -72,47 +79,55 @@ void NodeItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidge
     }
     else if (scene->getLauncher() == this)
     {
-        pix.load("Icons/attack.png");
-        painter->drawPixmap(-10, -10, 20, 20, pix);
+        painter->setPen(pen);
+        painter->setFont(font);
+        painter->drawPath(path);
+        painter->fillPath(path, Qt::darkMagenta);
+        painter->drawText(rect, Qt::AlignCenter, getNodeID());
     }
     else if (scene->getTarget() == this)
     {
-        pix.load("Icons/target.png");
-        painter->drawPixmap(-10, -10, 20, 20, pix);
+        painter->setPen(pen);
+        painter->setFont(font);
+        painter->drawPath(path);
+        painter->fillPath(path, Qt::darkGreen);
+        painter->drawText(rect, Qt::AlignCenter, getNodeID());
     }
     else if (nodeship == ENEMY)
     {
-        //pix.load("Icons/blue.png");
-        char buffer[MAX_BUFF_LENGTH];
-        memset(buffer,0,sizeof(buffer));
-        sprintf(buffer,"Icons/blue%d",this->getNodeId());
-
-        pix.load(buffer);
-        painter->drawPixmap(-10, -10, 20, 20, pix);
+        painter->setPen(pen);
+        painter->setFont(font);
+        painter->drawPath(path);
+        painter->fillPath(path, Qt::red);
+        painter->drawText(rect, Qt::AlignCenter, getNodeID());
     }
     else if (nodeship == FRIEND)
     {
         if (center)
         {
             pix.load("Icons/star.png");
-            painter->drawPixmap(-20, -20, 40, 40, pix);
+            painter->drawPixmap(-30, -30, 60, 60, pix);
         }
         else
         {
-            //printf("the node id is %d\n",this->getNodeId());
-            char buffer[MAX_BUFF_LENGTH];
-            memset(buffer,0,sizeof(buffer));
-            sprintf(buffer,"Icons/red0%d",this->getNodeId());
-
-            pix.load(buffer);
-            //pix.load("Icons/red.png");
+            /*
+            pix.load("Icons/red.png");
             painter->drawPixmap(-10, -10, 20, 20, pix);
+            */
+            painter->setPen(pen);
+            painter->setFont(font);
+            painter->drawPath(path);
+            painter->fillPath(path, Qt::blue);
+            painter->drawText(rect, Qt::AlignCenter, getNodeID());
         }
     }
     else
     {
-        pix.load("Icons/black.png");
-        painter->drawPixmap(-10, -10, 20, 20, pix);
+        painter->setPen(pen);
+        painter->setFont(font);
+        painter->drawPath(path);
+        painter->fillPath(path, Qt::black);
+        painter->drawText(rect, Qt::AlignCenter, getNodeID());
     }
 }
 
